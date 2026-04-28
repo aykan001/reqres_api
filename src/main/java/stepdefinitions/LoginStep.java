@@ -15,7 +15,7 @@ public class LoginStep {
     public LoginStep(TextContext context) {
         this.context = context;
     }
-
+    
     @Given("login icin {string} ve {string} body gönder")
     public void setLoginBody(String email, String password) {
         if(email.equals("NULL") || password.equals("NULL") ||
