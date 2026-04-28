@@ -27,5 +27,6 @@ public class RepeatStep {
         String token=context.response.jsonPath().get("token");
         assertNotNull(token);
         assertFalse(token.isEmpty());
+        assertEquals(200,context.response.statusCode());
     }
 }
