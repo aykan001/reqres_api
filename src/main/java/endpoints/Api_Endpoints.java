@@ -11,6 +11,7 @@ public class Api_Endpoints {
     public static final String WITHOUT_PAGE_GENERIC_RESOURCE_ENDPOINT="/products?page=";
     public static final String LOGIN_ENDPOINT="/login";
     public static final String REGISTER_ENDPOINT="/register";
+    public static final String USER_UPDATE_ENDPOINT="/users/2";
 
 
 }
