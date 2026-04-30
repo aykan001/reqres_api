@@ -56,4 +56,12 @@ public class BaseServer {
                 .extract()
                 .response();
     }
+    public static Response putUserUpdateRaw(String endpoint,String rawBody){
+        return given()
+                .spec(requestSpec)
+                .body(rawBody)
+                .when()
+                .put(endpoint);
+
+    }
 }
