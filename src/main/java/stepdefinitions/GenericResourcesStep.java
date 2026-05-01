@@ -1,19 +1,26 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.*;
-import servers.GenericResourcesServer;
+import client.ResourceClient;
 import utils.TextContext;
 
 public class GenericResourcesStep {
+
     TextContext context;
-    public GenericResourcesStep(TextContext context){this.context=context;}
+
+    public GenericResourcesStep(TextContext context) {
+        this.context = context;
+    }
+
     @Given("generic resources request atilir")
-    public void getGenericResources(){
-        context.response= GenericResourcesServer.getGenericResources();
+    public void getGenericResources() {
+        new ResourceClient();
+        context.response = ResourceClient.getGenericResources("1");
     }
 
     @Given("different {string} generic resources request atilir")
     public void differentGenericResourcesRequestAtilir(String page) {
-        context.response=GenericResourcesServer.getDifferentGenericResources(page);
+        new ResourceClient();
+        context.response = ResourceClient.getGenericResources(page);
     }
 }

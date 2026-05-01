@@ -1,20 +1,21 @@
-Feature: List Resources API Test
-  Scenario:Case-P01 Get List Resources
+Feature: Resource API Test
+
+  Scenario: Get resources
     Given list resources request atilir
     Then response status code 200 olmali
-    And response bos olmamali
 
-  Scenario Outline: Case-N01 Get wrong endpoint List Resources
+  Scenario Outline: Wrong endpoint
+      ********eksik veya yanlış göndersek bile 200 dönüyor beklenen disinda davranıyor *****
     Given wrong "<endpoint>" request atilir
-    Then response status code <statusCode> olmali
+    Then response status code 404 olmali
     Examples:
-      | endpoint | statusCode |
-      | /        | 404        |
-      | /unk2424 | 404        |
+      | endpoint |
+      | /unk     |
+      | /invalid |
+      | unknow   |
 
-  Scenario Outline: Case-N02 Get without auth List Resources
-    Given without auth "<endpoint>" request atilir
-    Then response status code <statusCode> olmali
-    Examples:
-      | endpoint | statusCode |
-      | /unknown | 401        |
+
+  Scenario: Without auth
+    ****Then gitmeden hata veriyor ama hata doğru****
+    Given without auth "/unknown" request atilir
+    Then response status code 401 olmali

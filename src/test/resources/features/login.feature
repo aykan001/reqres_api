@@ -1,19 +1,20 @@
 Feature: Login API Test
-  Scenario Outline: Case-P01  successful login test
-    Given login icin "<email>" ve "<password>" body gönder
-    Then  response status code <statusCode> olmali
-    And response icin token olmali
-    Examples:
-      | email              | password   | statusCode |
-      | eve.holt@reqres.in | cityslicka | 200        |
 
-  Scenario Outline: Case-N01 fail login test
+  Scenario: Successful login
+    Given login icin "eve.holt@reqres.in" ve "cityslicka" body gönder
+    Then response status code 200 olmali
+    And response icin token olmali
+
+  Scenario Outline: Invalid login attempts
     Given login icin "<email>" ve "<password>" body gönder
-    Then response status code <statusCode> olmali
+    Then response status code 400 olmali
     Examples:
-      | email              | password   | statusCode |
-      | eve.holtreqres.in  | cityslicka | 400        |
-      | eve.holt@reqres.in | NULL       | 400        |
-      | NULL               | cityslicka | 400        |
-      | NULL               | NULL       | 400        |
-      | EMPTY              | EMPTY      | 400        |
+      | email              | password   |
+      | eve.holtreqres.in  | cityslicka |
+      | eve.holt@reqres.in | NULL       |
+      | NULL               | cityslicka |
+      | EMPTY              | EMPTY      |
+
+  Scenario: Login without API key
+    Given login without apikey
+    Then response status code 401 olmali

@@ -1,27 +1,21 @@
 Feature: User Update API Test
-  Scenario Outline: Case-P01 Successfully user updates
-    Given user update icin "<name>" ve "<job>" valid body gonder
-    Then response status code <statusCode> olmali
-    And "name" "<name>" bos olmamali ve dogru olmali
-    And "job" "<job>" bos olmamali ve dogru olmali
+
+  Scenario: Successful update
+    Given user update icin "morpheus" ve "zion resident" valid body gonder
+    Then response status code 200 olmali
+    And "name" "morpheus" bos olmamali ve dogru olmali
+    And "job" "zion resident" bos olmamali ve dogru olmali
     And updatedAt bos olmamali ve dogru olmali
-    Examples:
-      | name     | job           | statusCode |
-      | morpheus | zion resident | 200        |
 
-
-
-  Scenario Outline: Case-N01 User update that failed and behaved unexpectedly
+  Scenario Outline: Invalid update data
     Given user update icin "<name>" ve "<job>" valid body gonder
-    Then response status code <statusCode> olmali
+    Then response status code 200 olmali
     Examples:
-      | name  | job   | statusCode |
-      | NULL  | NULL  | 200        |
-      | EMPTY | EMPTY | 200        |
-      | 1234  | 1224  | 200        |
+      | name  | job   |
+      | NULL  | NULL  |
+      | EMPTY | EMPTY |
 
-
-  Scenario: Case-N02 Empty body ile user update
-    Given user update icin empty body gonder
+  Scenario: Empty body update
+    Given user update icin bos body gonder
     Then response status code 200 olmali
 

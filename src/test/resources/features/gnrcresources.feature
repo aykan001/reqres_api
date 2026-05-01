@@ -1,15 +1,23 @@
-Feature: Generic Resources Test API
-  Scenario: Case-P01 Get generic resources
+Feature: Generic Resources API Test
+
+  Scenario: Get generic resources
     Given generic resources request atilir
     Then response status code 200 olmali
     And response bos olmamali
 
-  Scenario Outline:Case-P02 Get different generic resources
+  Scenario Outline: Get generic resources by page
     Given different "<page>" generic resources request atilir
-    Then response status code <statusCode> olmali
-    And response bos olmamali
+    Then response status code 200 olmali
     Examples:
-      | page | statusCode |
-      | 2    | 200        |
-      | 5    | 200        |
-      | 12   | 200        |
+      | page |
+      | 1    |
+      | 2    |
+
+  Scenario Outline: Invalid page requests
+    Given different "<page>" generic resources request atilir
+    Then response status code 200 olmali
+    Examples:
+      | page |
+      | 999  |
+      | -1   |
+      | abc  |

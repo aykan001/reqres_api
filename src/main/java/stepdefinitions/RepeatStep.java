@@ -1,33 +1,44 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.*;
-import servers.RepeatServer;
+import client.ResourceClient;
 import utils.TextContext;
 
 import static org.junit.Assert.*;
 
 public class RepeatStep {
+
     TextContext context;
-    public RepeatStep(TextContext context){this.context=context;}
+
+    public RepeatStep(TextContext context) {
+        this.context = context;
+    }
 
     @Given("wrong {string} request atilir")
-    public void getWrongEndpointRequestAtilir(String endpoint) {
-        context.response= RepeatServer.getWrongEndpoint(endpoint);
+    public void wrongEndpoint(String endpoint) {
+        new ResourceClient();
+        context.response = ResourceClient.getWrongEndpoint(endpoint);
     }
+
     @Given("without auth {string} request atilir")
-    public void getWithoutAuthRequestAtilir(String endpoint) {
-        context.response=RepeatServer.getWithoutAuth(endpoint);
+    public void withoutAuth(String endpoint) {
+        new ResourceClient();
+        context.response = ResourceClient.getWithoutAuth(endpoint);
     }
+
     @And("response bos olmamali")
-    public void getNoEmptyResponse(){
+    public void responseNotEmpty() {
         assertNotNull(context.response.jsonPath().get("data"));
     }
 
     @And("response icin token olmali")
-    public void responseIcinTokenOlmali() {
-        String token=context.response.jsonPath().get("token");
+    public void tokenCheck() {
+        String token = context.response.jsonPath().get("token");
         assertNotNull(token);
         assertFalse(token.isEmpty());
-        assertEquals(200,context.response.statusCode());
+    }
+    @Then("user bos olmamali")
+    public void userNotEmpty() {
+        assertNotNull(context.response.jsonPath().get("data"));
     }
 }
