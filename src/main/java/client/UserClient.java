@@ -13,7 +13,7 @@ public class UserClient extends BaseClient {
     public static Response updateUser(Object body) {
         return BaseClient.putRequest(USER_UPDATE_ENDPOINT,body);
     }
-    public Response updateUserNoAuth(Object body) {
+    public static Response updateUserNoAuth(Object body) {
         return BaseClient.putNoAuthRequest(USER_UPDATE_ENDPOINT,body);
     }
 }

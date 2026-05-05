@@ -40,6 +40,11 @@ public class BaseClient {
                 .body(body)
                 .put(endpoint);
     }
+    public static Response deleteRequest(String endpoint){
+        return given()
+                .spec(spec())
+                .delete(endpoint);
+    }
 
     public static Response getWithoutAuthRequest(String endpoint) {
         return given()

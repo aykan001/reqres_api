@@ -16,3 +16,11 @@ Feature: User Update API Test
       | NULL  | NULL  |
       | EMPTY | EMPTY |
 
+  Scenario Outline: Without Auth updated user
+    ****401 alıyoruz doğru ama statusCode gelmeden hata fırlatıyor*********
+    Given user updated icin without auth "<name>" "<job>" body gonder
+    Then response status code 401 olmali
+    Examples:
+      | name     | job           |
+      | morpheus | zion resident |
+

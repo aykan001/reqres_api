@@ -2,6 +2,7 @@ package stepdefinitions;
 
 import io.cucumber.java.en.*;
 import client.UserClient;
+import models.UpdateBody;
 import utils.BodyBuilder;
 import utils.TextContext;
 import static org.junit.Assert.*;
@@ -20,16 +21,6 @@ public class UserUpdateStep {
         context.response = UserClient
                 .updateUser(BodyBuilder.user(name, job));
     }
-    @Given("user update icin bos body gonder")
-    public void emptyBody() {
-        new UserClient();
-        context.response = UserClient.updateUser(new java.util.HashMap<>());
-    }
-    @Given("user update icin empty body gonder")
-    public void emptyJson() {
-        new UserClient();
-        context.response = UserClient.updateUser(new java.util.HashMap<>());
-    }
     @And("{string} {string} bos olmamali ve dogru olmali")
     public void fieldCheck(String field, String expected) {
         String actual = context.response.jsonPath().get(field);
@@ -45,5 +36,12 @@ public class UserUpdateStep {
         OffsetDateTime now = OffsetDateTime.now();
 
         assertTrue(Duration.between(time, now).getSeconds() < 5);
+    }
+
+    @Given("user updated icin without auth {string} {string} body gonder")
+    public void userUpdatedIcinWithoutAuthBodyGonder(String name, String job) {
+        new UserClient();
+        UpdateBody body=new UpdateBody(name,job);
+        context.response=UserClient.updateUserNoAuth(body);
     }
 }
