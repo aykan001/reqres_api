@@ -13,6 +13,7 @@ Feature: Register API Test
       | EMPTY              | pistol   |
       | NULL               | NULL     |
 
-  Scenario: Register without API key ******Beklenen 401 dönüyor ama statusCode görmeden hata veriyor*******
+  Scenario: Register without API key
+  ******Beklenen 401 dönüyor ama statusCode görmeden hata veriyor*******
     Given without auth "/register" request atilir
     Then response status code 401 olmali

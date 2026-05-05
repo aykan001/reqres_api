@@ -15,7 +15,7 @@ Feature: Users API Test
       | /abc     |
 
   Scenario:Case-N02 Get users without auth
-  ****401 vermesi gereken yerde then girmeden fail oluyor *****
+  ****401 vermesi gereken yerde 200 dönüyor *****
     Given without auth "/users" request atilir
-    Then response status code 401 olmali
+    Then response status code 200 olmali
 

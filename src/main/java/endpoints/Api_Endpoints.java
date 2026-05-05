@@ -5,11 +5,9 @@ public class Api_Endpoints {
     public static final String BASE_URL = "https://reqres.in/api";
 
     public static final String USERS_LIST_ENDPOINT = "/users";
-    public static final String USER_ENDPOINT = "/users/2";
-    public static final String WITHOUT_ID_USER_ENDPOINT = "/users/";
+    public static final String USER_ENDPOINT = "/users/";
 
     public static final String RESOURCES_ENDPOINT = "/unknown";
-    public static final String GENERIC_RESOURCE_ENDPOINT = "/products?page=1";
     public static final String WITHOUT_PAGE_GENERIC_RESOURCE_ENDPOINT = "/products?page=";
 
     public static final String LOGIN_ENDPOINT = "/login";

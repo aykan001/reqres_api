@@ -14,6 +14,7 @@ Feature: Generic Resources API Test
       | 2    |
 
   Scenario Outline: Invalid page requests
+    ****geçersiz değerlerde bile 200 dönüyor beklenen disi*****
     Given different "<page>" generic resources request atilir
     Then response status code 200 olmali
     Examples:

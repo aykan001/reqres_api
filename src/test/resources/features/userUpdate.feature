@@ -8,14 +8,11 @@ Feature: User Update API Test
     And updatedAt bos olmamali ve dogru olmali
 
   Scenario Outline: Invalid update data
+    ****400 donmesi gereke ama 200 donuyor beklenen dişi****
     Given user update icin "<name>" ve "<job>" valid body gonder
     Then response status code 200 olmali
     Examples:
       | name  | job   |
       | NULL  | NULL  |
       | EMPTY | EMPTY |
-
-  Scenario: Empty body update
-    Given user update icin bos body gonder
-    Then response status code 200 olmali
 

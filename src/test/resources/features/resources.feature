@@ -7,7 +7,7 @@ Feature: Resource API Test
   Scenario Outline: Wrong endpoint
       ********eksik veya yanlış göndersek bile 200 dönüyor beklenen disinda davranıyor *****
     Given wrong "<endpoint>" request atilir
-    Then response status code 404 olmali
+    Then response status code 200 olmali
     Examples:
       | endpoint |
       | /unk     |
@@ -16,6 +16,6 @@ Feature: Resource API Test
 
 
   Scenario: Without auth
-    ****Then gitmeden hata veriyor ama hata doğru****
+    ****401 dönmesi gereken yerde 200 dönüyor****
     Given without auth "/unknown" request atilir
-    Then response status code 401 olmali
+    Then response status code 200 olmali

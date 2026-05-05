@@ -19,14 +19,6 @@ public class AuthStep {
                 BodyBuilder.auth(email, password)
         );
     }
-
-    @Given("register icin {string} ve {string} body gönder")
-    public void register(String email, String password) {
-        context.response = AuthClient.register(
-                BodyBuilder.auth(email, password)
-        );
-    }
-
     @Given("login without apikey")
     public void loginNoKey() {
         context.response = AuthClient.loginWithoutApiKey(
