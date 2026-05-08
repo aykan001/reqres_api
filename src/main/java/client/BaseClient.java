@@ -51,16 +51,21 @@ public class BaseClient {
                 .spec(noAuthSpec())
                 .get(endpoint);
     }
-    public static Response postWithoutApiKey(String endpoint,Object body) {
+    public static Response postWithoutAuthRequest(String endpoint,Object body) {
         return given()
                 .spec(noAuthSpec())
                 .body(body)
                 .post(endpoint);
     }
-    public static Response putNoAuthRequest(String endpoint,Object body) {
+    public static Response putWithoutAuthRequest(String endpoint,Object body) {
         return given()
                 .spec(noAuthSpec())
                 .body(body)
                 .put(endpoint);
+    }
+    public static Response deleteWithoutAuthRequest(String endpoint){
+        return given()
+                .spec(noAuthSpec())
+                .delete(endpoint);
     }
 }
