@@ -12,6 +12,6 @@ public class AuthClient extends BaseClient {
         return BaseClient.postRequest(REGISTER_ENDPOINT,body);
     }
     public static Response loginWithoutApiKey(Object body) {
-        return BaseClient.postWithoutApiKey(LOGIN_ENDPOINT,body);
+        return BaseClient.postWithoutAuthRequest(LOGIN_ENDPOINT,body);
     }
 }
