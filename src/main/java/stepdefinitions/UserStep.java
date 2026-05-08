@@ -64,4 +64,10 @@ public class UserStep {
         UpdateBody body=new UpdateBody(name,job);
         context.response=UserClient.updateUserNoAuth(body);
     }
+
+    @Given("delete icin {string} user request atilir")
+    public void deleteUserByIdRequestAtilir(String id) {
+        new UserClient();
+        context.response=UserClient.deleteUser(id);
+    }
 }
