@@ -14,4 +14,7 @@ public class Api_Endpoints {
     public static final String REGISTER_ENDPOINT = "/register";
 
     public static final String USER_UPDATE_ENDPOINT = "/users/2";
+
+    public static final String LIST_RECORDS_ENDPOINT="/collections/products/records?project_id=14226";
+    public static final String RECORD_ENDPOINT="/collections/products/records/a6fea49d-69ec-473e-9994-c86dcdf5f40d?project_id=14226";
 }
