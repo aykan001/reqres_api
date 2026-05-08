@@ -14,7 +14,7 @@ public class UserClient extends BaseClient {
         return BaseClient.putRequest(USER_UPDATE_ENDPOINT,body);
     }
     public static Response updateUserNoAuth(Object body) {
-        return BaseClient.putNoAuthRequest(USER_UPDATE_ENDPOINT,body);
+        return BaseClient.putWithoutAuthRequest(USER_UPDATE_ENDPOINT,body);
     }
     public static Response deleteUser(String id){
         return BaseClient.deleteRequest(USER_ENDPOINT+id);
