@@ -1,24 +1,73 @@
 package stepdefinitions;
 
 import client.RecordClient;
-import io.cucumber.java.en.Given;
+import io.cucumber.java.en.*;
+import models.RecordBody;
+import utils.BodyBuilder;
 import utils.TextContext;
 
 public class RecordsStep {
+
     TextContext context;
 
-    public RecordsStep(TextContext context){
-        this.context=context;
-    }
-    @Given("list records request at")
-    public void getListRecordsRequest(){
-        new RecordClient();
-        context.response=RecordClient.getListRecords();
+    public RecordsStep(TextContext context) {
+        this.context = context;
     }
 
-    @Given("records request at")
-    public void recordsRequestAt() {
-        new RecordClient();
-        context.response=RecordClient.getRecord();
+    @Given("list records request at")
+    public void getListRecordsRequest() {
+        context.response = RecordClient.getListRecords();
+        context.response.prettyPrint();
+    }
+
+    @Given("record id {string} request at")
+    public void getRecordById(String id) {
+        context.response = RecordClient.getRecord(id);
+        context.response.prettyPrint();
+    }
+
+    @Given("record body {string} {string} {string} {string} request atilir")
+    public void createRecordRequestAtilir(String name,
+                                          String price,
+                                          String category,
+                                          String in_stock) {
+
+        RecordBody body = BodyBuilder.recordBodyBuilder(
+                name,
+                price,
+                category,
+                in_stock
+        );
+
+        context.response = RecordClient.postRecord(body);
+        context.response.prettyPrint();
+
+        // CREATE sonrası ID al
+        context.recordId = context.response.jsonPath().getString("id");
+        System.out.println("CREATED RECORD ID = " + context.recordId);
+    }
+
+    @Given("update record id {string} body {string} {string} {string} {string} request atilir")
+    public void updateRecordRequestAtilir(String id,
+                                          String name,
+                                          String price,
+                                          String category,
+                                          String in_stock) {
+
+        RecordBody body = BodyBuilder.recordBodyBuilder(
+                name,
+                price,
+                category,
+                in_stock
+        );
+
+        context.response = RecordClient.putRecord(id, body);
+        context.response.prettyPrint();
+    }
+
+    @Given("delete record id {string} request at")
+    public void deleteRecordRequestAt(String id) {
+        context.response = RecordClient.deleteRecord(id);
+        context.response.prettyPrint();
     }
 }
