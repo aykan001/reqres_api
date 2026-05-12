@@ -6,15 +6,18 @@ import static endpoints.Api_Endpoints.*;
 public class ResourceClient extends BaseClient {
 
     public static Response getResources() {
-        return BaseClient.getRequest(RESOURCES_ENDPOINT);
+        return sendUserRequest("GET", RESOURCES_ENDPOINT, null);
     }
+
     public static Response getGenericResources(String page) {
-        return BaseClient.getRequest(WITHOUT_PAGE_GENERIC_RESOURCE_ENDPOINT+page);
+        return sendUserRequest("GET", WITHOUT_PAGE_GENERIC_RESOURCE_ENDPOINT + page, null);
     }
+
     public static Response getWrongEndpoint(String endpoint) {
-        return BaseClient.getRequest(endpoint);
+        return sendUserRequest("GET", endpoint, null);
     }
+
     public static Response getWithoutAuth(String endpoint) {
-        return BaseClient.getWithoutAuthRequest(endpoint);
+        return sendNoAuthRequest("GET", endpoint, null);
     }
 }
