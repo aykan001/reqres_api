@@ -1,71 +1,59 @@
 package client;
 
 import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+
 import static endpoints.Api_Endpoints.*;
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
 
 public class BaseClient {
 
-    protected static RequestSpecification spec() {
-        return new RequestSpecBuilder()
-                .setBaseUri(BASE_URL)
-                .addHeader("x-api-key", API_KEY)
-                .setContentType("application/json")
-                .build();
-    }
+    private static RequestSpecification baseSpec() {
 
-    protected static RequestSpecification noAuthSpec() {
+        RestAssuredConfig config = RestAssuredConfig.config();
+
         return new RequestSpecBuilder()
                 .setBaseUri(BASE_URL)
                 .setContentType("application/json")
+                .setConfig(config)
                 .build();
     }
-    public static Response getRequest(String endpoint){
+    protected static RequestSpecification userSpec() {
         return given()
-                .spec(spec())
-                .get(endpoint);
+                .spec(baseSpec())
+                .header("x-api-key", USER_API_KEY);
+    }
+    protected static RequestSpecification recordSpec() {
+        return given()
+                .spec(baseSpec())
+                .header("x-api-key", RECORD_API_KEY)
+                .header("X-Reqres-Env", RECORD_X_REQRES_ENV)
+                .queryParam("project_id", "14226");
     }
 
-    public static Response postRequest(String endpoint,Object body) {
+    protected static RequestSpecification userNoAuthSpec() {
         return given()
-                .spec(spec())
-                .body(body)
-                .post(endpoint);
+                .spec(baseSpec());
     }
-    public static Response putRequest(String endpoint,Object body) {
-        return given()
-                .spec(spec())
-                .body(body)
-                .put(endpoint);
+    public static Response sendUserRequest(String method, String endpoint, Object body) {
+
+        return (body == null)
+                ? userSpec().when().request(method, endpoint).then().extract().response()
+                : userSpec().body(body).when().request(method, endpoint).then().extract().response();
     }
-    public static Response deleteRequest(String endpoint){
-        return given()
-                .spec(spec())
-                .delete(endpoint);
+    public static Response sendRecordRequest(String method, String endpoint, Object body) {
+
+        return (body == null)
+                ? recordSpec().when().request(method, endpoint).then().extract().response()
+                : recordSpec().body(body).when().request(method, endpoint).then().extract().response();
     }
 
-    public static Response getWithoutAuthRequest(String endpoint) {
-        return given()
-                .spec(noAuthSpec())
-                .get(endpoint);
-    }
-    public static Response postWithoutAuthRequest(String endpoint,Object body) {
-        return given()
-                .spec(noAuthSpec())
-                .body(body)
-                .post(endpoint);
-    }
-    public static Response putWithoutAuthRequest(String endpoint,Object body) {
-        return given()
-                .spec(noAuthSpec())
-                .body(body)
-                .put(endpoint);
-    }
-    public static Response deleteWithoutAuthRequest(String endpoint){
-        return given()
-                .spec(noAuthSpec())
-                .delete(endpoint);
+    public static Response sendNoAuthRequest(String method, String endpoint, Object body) {
+
+        return (body == null)
+                ? userNoAuthSpec().when().request(method, endpoint).then().extract().response()
+                : userNoAuthSpec().body(body).when().request(method, endpoint).then().extract().response();
     }
 }
