@@ -1,8 +1,7 @@
 package stepdefinitions;
 
-import client.RecordClient;
+import clients.RecordClient;
 import io.cucumber.java.en.*;
-import models.RecordBody;
 import utils.BodyBuilder;
 import utils.TextContext;
 
@@ -17,13 +16,11 @@ public class RecordsStep {
     @Given("list records request at")
     public void getListRecordsRequest() {
         context.response = RecordClient.getListRecords();
-        context.response.prettyPrint();
     }
 
     @Given("record id {string} request at")
     public void getRecordById(String id) {
         context.response = RecordClient.getRecord(id);
-        context.response.prettyPrint();
     }
 
     @Given("record body {string} {string} {string} {string} request atilir")
@@ -40,9 +37,7 @@ public class RecordsStep {
         );
 
         context.response = RecordClient.postRecord(body);
-        context.response.prettyPrint();
 
-        // CREATE sonrası ID al
         context.recordId = context.response.jsonPath().getString("id");
         System.out.println("CREATED RECORD ID = " + context.recordId);
     }
@@ -62,12 +57,17 @@ public class RecordsStep {
         );
 
         context.response = RecordClient.putRecord(id, body);
-        context.response.prettyPrint();
     }
 
     @Given("delete record id {string} request at")
     public void deleteRecordRequestAt(String id) {
         context.response = RecordClient.deleteRecord(id);
-        context.response.prettyPrint();
+    }
+
+    @Given("list collections {string} request at")
+    public void listCollectionsRequestAt(String project_id) {
+        context.response=RecordClient.getListCollections();
+
+
     }
 }

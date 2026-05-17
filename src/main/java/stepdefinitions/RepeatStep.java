@@ -1,7 +1,7 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.*;
-import client.ResourceClient;
+import clients.ResourceClient;
 import utils.TextContext;
 
 import static org.junit.Assert.*;
@@ -18,12 +18,6 @@ public class RepeatStep {
     public void wrongEndpoint(String endpoint) {
         new ResourceClient();
         context.response = ResourceClient.getWrongEndpoint(endpoint);
-    }
-
-    @Given("without auth {string} request atilir")
-    public void withoutAuth(String endpoint) {
-        new ResourceClient();
-        context.response = ResourceClient.getWithoutAuth(endpoint);
     }
 
     @And("response bos olmamali")

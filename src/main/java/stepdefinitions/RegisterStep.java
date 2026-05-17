@@ -1,12 +1,11 @@
 package stepdefinitions;
 
 import io.cucumber.java.en.*;
-import client.AuthClient;
-import utils.BodyBuilder;
+import service.RegisterService;
 import utils.TextContext;
 
 public class RegisterStep {
-
+    RegisterService registerService;
     TextContext context;
 
     public RegisterStep(TextContext context) {
@@ -15,8 +14,16 @@ public class RegisterStep {
 
     @Given("user register icin {string} ve {string} body gönder")
     public void register(String email, String password) {
-        new AuthClient();
-        context.response = AuthClient
-                .register(BodyBuilder.auth(email, password));
+        registerService.setRegisterDetail(email,password);
+    }
+
+    @Given("user register icin {string} ve {string} invalid body gönder")
+    public void userRegisterIcinVeInvalidBodyGonder(String email, String password) {
+        registerService.setWrongBodyRegisterDetail(email, password);
+    }
+
+    @Given("without auth register {string} ve {string} request atilir")
+    public void withoutAuthRegisterRequestAtilir(String email,String password) {
+        registerService.setWithoutAuthRegisterDetail(email, password);
     }
 }
